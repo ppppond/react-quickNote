@@ -4,12 +4,12 @@ import NoteItem from "./component/NoteItem";
 import "./App.css";
 
 function App() {
+    // VVV เป็นการสร้าง localStorage ผ่านการใช้ arrow function
     const [notes, setNotes] = useState(() => {
         const getSaveNotes = localStorage.getItem("saveNotes");
         const transfromData = JSON.parse(getSaveNotes);
         return transfromData || [];
     });
-    const [inputText, setInputText] = useState("");
 
     useEffect(() => {
         localStorage.setItem("saveNotes", JSON.stringify(notes));
@@ -22,17 +22,6 @@ function App() {
         };
 
         setNotes([...notes, newNote]);
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        if (inputText === "") {
-            return;
-        }
-
-        addNote(inputText);
-        setInputText("");
     };
 
     const deleteNote = (noteTarget) => {
@@ -49,9 +38,6 @@ function App() {
             <h2>Quick Note</h2>
             <NoteForm
                 addNote={addNote}
-                handleSubmit={handleSubmit}
-                inputText={inputText}
-                setInputText={setInputText}
             />
 
             <div className="list-note">
