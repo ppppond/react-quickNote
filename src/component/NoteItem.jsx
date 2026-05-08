@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-function NoteItem({note}) {
+function NoteItem({ note, deleteNote }) {
 
     return (
-        <div>
+        <div className="note-container">
             <h2>{note.text}</h2>
-            <button id="finish">finish</button>
-            <button id="remove-card">X</button>
+            <button className="finish">finish</button>
+            <button className="delete-btn" onClick={()=>deleteNote(note.id)}>X</button>
         </div>
     )
 };
