@@ -1,11 +1,31 @@
 import { useState } from "react";
 
-function NoteForm({addNote, handleSubmit, inputText, setInputText}){
-    
+function NoteForm({ addNote }) {
+
+    const [inputText, setInputText] = useState("");
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (inputText === "") {
+            return;
+        }
+
+        addNote(inputText);
+        setInputText("");
+    };
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <input type="text" id="input-note" className="input-note" placeholder="What do you think..." value={inputText} onChange={(e) => setInputText(e.target.value)} />
+                <input
+                    type="text"
+                    id="input-note"
+                    className="input-note"
+                    placeholder="What do you think..."
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                />
                 <button type="submit">submit</button>
             </form>
         </div>
