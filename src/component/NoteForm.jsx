@@ -16,7 +16,7 @@ function NoteForm({ addNote }) {
     };
 
     return (
-        <div>
+        <div className="form-container">
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"

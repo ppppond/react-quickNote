@@ -10,15 +10,20 @@ function App() {
         const transfromData = JSON.parse(getSaveNotes);
         return transfromData || [];
     });
+    const [ isEdit, setIsEdit ] = useState(false);
+    const [ isClick, setIsClick ] = useState(false);
 
     useEffect(() => {
         localStorage.setItem("saveNotes", JSON.stringify(notes));
     }, [notes]);
+
+
     // create function
     const addNote = (text) => {
         const newNote = {
             id: Date.now(),
             text: text,
+            isFinish: false,
         };
 
         setNotes([...notes, newNote]);
@@ -31,11 +36,45 @@ function App() {
         setNotes(filterNote);
     };
 
+    const finishNote = (noteTarget) => {
+        // VVV map วนสร้าง note ตัวใหม่และ update ข้อมูลใหม่ไปเลย
+        const updateNoteFinish = notes.map((note) => {
+            if (note.id === noteTarget) {
+                // VVV อันนี้เป็นการกาง object ทั้งหมดออกมาแล้ว update ค่าเป้าหมายของเราเข้าไปแทน
+                return {...note, isFinish: !note.isFinish}
+            } else {
+                // VVV return note (object) ตัวเดิมกลับไป
+                return note;
+            }
+        });
+
+        // ยัด updateNoteFinish ลงไปใน state เพื่อกำหนดเป็น array ใหม่ไปเลย
+        setNotes(updateNoteFinish);
+    }
+
+    const checkEditBtn = () => setIsEdit(!isEdit);
+
+    const editText = (targetId, targetText) => {
+        const updateNoteEdit = notes.map((note) => {
+            if (note.id === targetId) {
+                return {...note, text: targetText};
+            } else {
+                return note;
+            }
+        })
+        checkEditBtn();
+        setNotes(updateNoteEdit);
+    }
+
+    const displayEditTag = () => {
+        setIsClick(!isClick);
+    }
+
     console.log(notes);
 
     return (
         <div className="container">
-            <h2>Quick Note</h2>
+            <h2 className="main-title">Quick Note</h2>
             <NoteForm
                 addNote={addNote}
             />
@@ -46,6 +85,11 @@ function App() {
                         key={noteItemData.id}
                         note={noteItemData}
                         deleteNote={deleteNote}
+                        finishNote={finishNote}
+                        isEdit={isEdit}
+                        checkEditBtn={checkEditBtn}
+                        editText={editText}
+                        displayEditTag={displayEditTag}
                     />
                 ))}
             </div>

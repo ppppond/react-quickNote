@@ -1,0 +1,112 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root{
+    --bg-color: rgb(42, 42, 154);
+    --second-color: rgb(76, 76, 228);
+    --list-color: rgb(177, 198, 250);
+    --font-color-b: black;
+    --font-color-w: white;
+    --shadow: black;
+    --btn-confirm: rgb(146, 224, 146);
+    --alert-con: rgb(216, 51, 51);
+}
+
+body{
+    background-color: var(--bg-color);
+    height: 100vh;
+    color: inherit
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    background-color: var(--second-color);
+    color: var(--font-color-w);
+    border-radius: 15px;
+    gap: 15px;
+    box-shadow:2px 0 5px var(--shadow);
+    width: 40vh;
+    align-items: center;
+    justify-content: center;
+} 
+
+.main-title{
+    text-decoration: underline;
+}
+
+.form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container input {
+    border-radius: 15px;
+    padding: 5px 10px;
+}
+
+.form-container button{
+    border-radius: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.form-container button:hover{
+    background-color: var(--btn-confirm); 
+}
+
+.list-note{
+    display: flex;
+    flex-direction: column;
+}
+
+.note-container {
+    display: flex;
+    width: 30vh;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    background-color: var(--list-color);
+    color: var(--font-color-b);
+    border-radius: 15px;
+    box-shadow: 1px 0 5px var(--shadow);
+    margin-bottom: 5px;
+}
+
+.display-forward{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.util {
+    display: flex;
+    gap: 5px;
+}
+
+.util .finish{
+    padding: 2px 5px;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+}
+
+.util .finish:hover {
+    background-color: var(--btn-confirm);
+}
+.util .del{
+    padding: 2px 5px;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+}
+
+.uti .del:hover {
+    background-color: red;
+}
