@@ -1,16 +1,45 @@
 import { useState } from "react";
 
-function NoteItem({ note, deleteNote }) {
-    const [ finish, setFinish ] = useState(false);
+function NoteItem({ note, deleteNote, finishNote, editText, }) {
+    const [ inputEditText, setInputEditText ] = useState("");
+    const [ isEdit, setIsEdit ] = useState(false);
 
-    // สามารถกำหนดค่าใน useState แบบตรงข้ามได้เลย "!"
-    const toggleFinish = () => setFinish(!finsih)
-
+    const toggleEditMode = () => {
+        setIsEdit(!isEdit);
+    }
+    
     return (
-        <div className="note-container">
-            <h2 style={ {textDecoration: finish ? "line-through": "", color: finish ? "gray": ""}}>{note.text}</h2>
-            <button className="finish" onClick={toggleFinish}>finish</button>
-            <button className="delete-btn" onClick={()=>deleteNote(note.id)}>X</button>
+        <div className="note-container" key={note.id}>
+            <div className="display-forward">
+                <h2 style={
+                    {
+                        display: isEdit ? "none" : "block",
+                        textDecoration: note.isFinish ? "line-through": "none",
+                        color: note.isFinish ? "gray" : "inherit",
+                    }
+                }>{note.text}</h2>
+                
+                { isEdit 
+                    ? 
+                    <div className="edit-container">
+                        <input type="text" onChange={(e) => setInputEditText(e.target.value)} value={inputEditText} />
+                        <button onClick={()=> {
+                                editText(note.id, inputEditText);
+                                setIsEdit(false);
+                            }
+                        }>submit</button>
+                    </div>
+                    : 
+                    <button className="edit-btn" onClick={toggleEditMode}>edit</button>
+                }
+                
+            </div>
+
+            <div className="util">
+                <button className="finish" onClick={() => finishNote(note.id)}>finish</button>
+                <button className="del" onClick={()=>deleteNote(note.id)}>X</button>
+            </div>
+            
         </div>
     )
 };
