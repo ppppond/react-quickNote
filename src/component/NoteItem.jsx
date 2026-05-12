@@ -1,11 +1,15 @@
 import { useState } from "react";
 
-function NoteItem({ note, deleteNote, finishNote, isEdit, checkEditBtn, editText, displayEditTag }) {
+function NoteItem({ note, deleteNote, finishNote, editText, }) {
     const [ inputEditText, setInputEditText ] = useState("");
-    // const grabTarget = note.id;
+    const [ isEdit, setIsEdit ] = useState(false);
+
+    const toggleEditMode = () => {
+        setIsEdit(!isEdit);
+    }
     
     return (
-        <div className="note-container">
+        <div className="note-container" key={note.id}>
             <div className="display-forward">
                 <h2 style={
                     {
@@ -14,13 +18,20 @@ function NoteItem({ note, deleteNote, finishNote, isEdit, checkEditBtn, editText
                         color: note.isFinish ? "gray" : "inherit",
                     }
                 }>{note.text}</h2>
-                { isEdit ? "": <button className="edit-btn" onClick={checkEditBtn}>edit</button>}
-                {/* { note.id == grabTarget ? <button className="edit-btn" onClick={checkEditBtn}>edit</button>: ""} */}
-                { isEdit ? 
+                
+                { isEdit 
+                    ? 
                     <div className="edit-container">
                         <input type="text" onChange={(e) => setInputEditText(e.target.value)} value={inputEditText} />
-                        <button onClick={()=>editText(note.id, inputEditText)}>submit</button>
-                    </div>: ""}
+                        <button onClick={()=> {
+                                editText(note.id, inputEditText);
+                                setIsEdit(false);
+                            }
+                        }>submit</button>
+                    </div>
+                    : 
+                    <button className="edit-btn" onClick={toggleEditMode}>edit</button>
+                }
                 
             </div>
 

@@ -10,7 +10,6 @@ function App() {
         const transfromData = JSON.parse(getSaveNotes);
         return transfromData || [];
     });
-    const [ isEdit, setIsEdit ] = useState(false);
     const [ isClick, setIsClick ] = useState(false);
 
     useEffect(() => {
@@ -52,7 +51,7 @@ function App() {
         setNotes(updateNoteFinish);
     }
 
-    const checkEditBtn = () => setIsEdit(!isEdit);
+   
 
     const editText = (targetId, targetText) => {
         const updateNoteEdit = notes.map((note) => {
@@ -62,12 +61,7 @@ function App() {
                 return note;
             }
         })
-        checkEditBtn();
         setNotes(updateNoteEdit);
-    }
-
-    const displayEditTag = () => {
-        setIsClick(!isClick);
     }
 
     console.log(notes);
@@ -86,10 +80,7 @@ function App() {
                         note={noteItemData}
                         deleteNote={deleteNote}
                         finishNote={finishNote}
-                        isEdit={isEdit}
-                        checkEditBtn={checkEditBtn}
                         editText={editText}
-                        displayEditTag={displayEditTag}
                     />
                 ))}
             </div>
